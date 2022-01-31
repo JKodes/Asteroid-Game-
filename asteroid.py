@@ -9,7 +9,7 @@ mainclock = pygame.time.Clock()
 
 bg_image = pygame.image.load('images/asteriod_galaxy.png')
 
-fix_bg_image = pygame.transform.scale(bg_image, (50,200))
+
 
 while True:
     for event in pygame.event.get():
