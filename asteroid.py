@@ -3,7 +3,8 @@ import pygame
 
 pygame.init()
 
-
+window_height = 800
+window_width = 400
 
 
 
