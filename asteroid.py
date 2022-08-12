@@ -1,5 +1,9 @@
+from turtle import window_height, window_width
 import pygame
-from sys import exit 
+
+pygame.init()
+
+
 
 
 
