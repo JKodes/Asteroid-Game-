@@ -3,8 +3,8 @@ import pygame
 
 pygame.init()
 
-window_height = 400
-window_width = 800
+window_width = 1000
+window_height = 700
 display_surface = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Asteriod")
 
@@ -12,7 +12,7 @@ pygame.display.set_caption("Asteriod")
 default_black  = (105, 105, 105)
 
 fps = 60
-clock = pygame.time.CLock()
+clock = pygame.time.Clock()
 
 run = True 
 
