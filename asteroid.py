@@ -11,6 +11,8 @@ pygame.display.set_caption("Asteriod")
 
 default_black  = (105, 105, 105)
 
+fps = 60
+clock = pygame.time.CLock()
 
 run = True 
 
@@ -25,6 +27,7 @@ while run:
 
 
     pygame.display.update()
+    clock.tick(fps)
 
 pygame.quit()
 
