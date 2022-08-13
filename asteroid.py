@@ -3,10 +3,13 @@ import pygame
 
 pygame.init()
 
-window_height = 800
-window_width = 400
+window_height = 400
+window_width = 800
 display_surface = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Asteriod")
+
+
+default_black  = (105, 105, 105)
 
 
 run = True 
@@ -15,7 +18,9 @@ run = True
 while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run == False
+            run = False
+    
+    display_surface.fill(default_black)
 
 
 
