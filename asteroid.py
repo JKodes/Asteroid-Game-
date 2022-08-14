@@ -35,6 +35,16 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                rocket_rect.x -= vel
+            if event.key == pygame.K_RIGHT:
+                rocket_rect.x += vel
+            if event.key == pygame.K_UP:
+                rocket_rect.y -= vel
+            if event.key == pygame.K_DOWN:
+                rocket_rect.y += vel
 
     
     
