@@ -16,13 +16,13 @@ default_black  = (105, 105, 105)
 fps = 60
 clock = pygame.time.Clock()
 
-vel = 5
+vel = 15
 
-rocket= pygame.image.load(os.path.join('Assets', 'station_rocket.png')).convert_alpha()
+rocket = pygame.image.load(os.path.join('Assets', 'station_rocket.png')).convert_alpha()
 rocket_rect = rocket.get_rect()
-rocket_rect.centerx = window_width// 2
-rocket_rect.bottom = window_height//2
+rocket_rect.center = window_width// 2 , window_height//2
 
+rocket_move =[pygame.image.load(os.path.join('Assets', 'moving_rocket.png'))]
 
 game_background = pygame.image.load(os.path.join('Assets', 'asteroid_bg.jpg'))
 
@@ -36,16 +36,16 @@ while run:
         if event.type == pygame.QUIT:
             run = False
         
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                rocket_rect.x -= vel
-            if event.key == pygame.K_RIGHT:
-                rocket_rect.x += vel
-            if event.key == pygame.K_UP:
-                rocket_rect.y -= vel
-            if event.key == pygame.K_DOWN:
-                rocket_rect.y += vel
+    keys = pygame.key.get_pressed()
 
+    if keys[pygame.K_LEFT]:
+        rocket_rect.x -= vel
+    if keys[pygame.K_RIGHT]:
+        rocket_rect.x += vel
+    if keys[pygame.K_UP]:
+        rocket_rect.y -= vel
+    if keys[pygame.K_DOWN]:
+        rocket_rect.y += vel
     
     
     display_surface.fill(default_black)
