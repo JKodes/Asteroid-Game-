@@ -5,7 +5,7 @@ import os
 
 pygame.init()
 
-window_width = 1000
+window_width = 1200
 window_height = 700
 display_surface = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Asteriod")
@@ -38,13 +38,13 @@ while run:
         
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_LEFT] and rocket_rect.left > 0:
         rocket_rect.x -= vel
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_RIGHT] and rocket_rect.right < window_width:
         rocket_rect.x += vel
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_UP] and rocket_rect.top > 0:
         rocket_rect.y -= vel
-    if keys[pygame.K_DOWN]:
+    if keys[pygame.K_DOWN] and rocket_rect.bottom < window_height:
         rocket_rect.y += vel
     
     
