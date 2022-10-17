@@ -7,3 +7,9 @@ WINDOW_HEIGHT = 600
 
 display_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Asteriod")
+
+FPS = 60
+clock = pygame.time.clock()
+
+running = True
+while running:
