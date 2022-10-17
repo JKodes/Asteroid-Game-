@@ -17,7 +17,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-
+    display_window.fill(0, 0, 0)
 
 
 
