@@ -9,7 +9,7 @@ display_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Asteriod")
 
 FPS = 60
-clock = pygame.time.clock()
+clock = pygame.time.Clock()
 
 running = True
 while running:
@@ -17,7 +17,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    display_window.fill(0, 0, 0)
+    display_window.fill((0, 0, 0))
     pygame.display.update()
     clock.tick(FPS)
 
