@@ -19,6 +19,7 @@ while running:
 
     display_window.fill(0, 0, 0)
     pygame.display.update()
+    clock.tick(FPS)
 
 
 pygame.quit()
