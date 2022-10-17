@@ -18,7 +18,7 @@ while running:
             running = False
 
     display_window.fill(0, 0, 0)
-
+    pygame.display.update()
 
 
 pygame.quit()
