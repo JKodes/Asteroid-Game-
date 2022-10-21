@@ -20,6 +20,23 @@ FPS = 60
 clock = pygame.time.Clock()
 
 
+
+class Player(pygame.sprite.Sprite):
+    '''A player class that the user can control'''
+    def __init__(self):
+        """Initailize the Player"""
+        super().__init__()
+        self.image = pygame.image.load(os.path.join('Assets', 'station_rocket.png'))
+        self.rect = self.image.get_rect()
+        self.rect.centerx = WINDOW_WIDTH//2
+
+
+        self.lives = 3
+        self.velocity = 7
+
+        
+
+
 #main game loop
 running = True
 while running:
