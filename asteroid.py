@@ -34,6 +34,9 @@ class Player(pygame.sprite.Sprite):
         self.lives = 3
         self.velocity = 7
 
+        self.hit_sound = pygame.mixer.Sound("hit.wav")
+        self.crash = pygame.mixer.Sound("")
+
         
 
 
