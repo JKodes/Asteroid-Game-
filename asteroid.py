@@ -20,6 +20,29 @@ FPS = 60
 clock = pygame.time.Clock()
 
 
+class Game():
+    """A class take oversee the enitre game"""
+    def __init__(self):
+        """Intilize the game object"""
+        pass
+
+    def update(self):
+        """Update our game object"""
+        pass
+    def draw(self):
+        """Draw the HUD and other to the display"""
+        pass
+    
+    def check_for_collisions(self):
+        """Check for collision between player and asteriod"""
+        pass
+
+    def pause_the_game(self):
+        pass
+
+    def reset_game(self):
+        pass
+
 
 class Player(pygame.sprite.Sprite):
     '''A player class that the user can control'''
@@ -37,6 +60,17 @@ class Player(pygame.sprite.Sprite):
         self.hit_sound = pygame.mixer.Sound("hit.wav")
         self.crash = pygame.mixer.Sound("")
 
+    def update(self):
+
+        keys = pygame.key.get_pressed()
+        moved = False
+        pass
+
+    def shoot(self):
+        pass
+
+    def reset(self):
+        self.rect.centerx = WINDOW_WIDTH//2
         
 
 
