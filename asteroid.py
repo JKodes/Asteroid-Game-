@@ -13,7 +13,7 @@ display_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Asteriod")
 
 #background for the game
-game_bg = pygame.image.load(os.path.join('Assets', 'asteroid_bg.jpg'))
+game_bg = pygame.image.load(os.path.join("Assets", "asteroid_bg.jpg"))
 
 #Set FPS and Clock
 FPS = 60
@@ -24,14 +24,24 @@ class Game():
     """A class take oversee the enitre game"""
     def __init__(self):
         """Intilize the game object"""
-        pass
+        self.score = 0
+
+        #Font
+        self.font = pygame.font.Font(os.pasth.join("Assets", "AnkhSanctuary-nROx4.ttf", 24))
+
+
+
+
+
+    
 
     def update(self):
         """Update our game object"""
         pass
     def draw(self):
         """Draw the HUD and other to the display"""
-        pass
+        #Color Set
+        WHITE = (255, 255,255)
     
     def check_for_collisions(self):
         """Check for collision between player and asteriod"""
