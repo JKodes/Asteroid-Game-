@@ -27,7 +27,7 @@ class Game():
         self.score = 0
 
         #Font
-        self.font = pygame.font.Font(os.pasth.join("Assets", "AnkhSanctuary-nROx4.ttf", 24))
+        self.font = pygame.font.Font(os.path.join("Assets", "AnkhSanctuary-nROx4.ttf", 24))
 
 
 
@@ -42,6 +42,20 @@ class Game():
         """Draw the HUD and other to the display"""
         #Color Set
         WHITE = (255, 255,255)
+
+
+        score_text = self.font.render("Score: " + str(self.score), True, WHITE)
+        score_rect = score_text.get_rect()
+        score_rect.topleft()
+
+        life_text = self.font.render("Lives: " + str(self.player.lives), True, WHITE)
+        life_rect = life_text.get_rect()
+        life_rect.topleft(5,20)
+
+
+
+        #Blit 
+        display_window.blit(score_text, score_rect)
     
     def check_for_collisions(self):
         """Check for collision between player and asteriod"""
@@ -83,6 +97,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.centerx = WINDOW_WIDTH//2
         
 
+#Create game object
+my_game = Game()
 
 #main game loop
 running = True
@@ -96,6 +112,8 @@ while running:
     display_window.fill((0,0,0))
     display_window.blit(game_bg,(0,0))
 
+
+    
 
     #Update display and tick clock
     pygame.display.update()
