@@ -19,8 +19,10 @@ pygame.display.set_caption("Asteriod")
 
 clock = pygame.time.Clock()
 
+background = pygame.image.load("Assets/asteriod_galaxy.png").convert_alpha()
 
-rocket_group =pygame.sprite.Group()
+
+rocket_group = pygame.sprite.Group()
 
 
 space_craft = RocketShip(rocket_group)
@@ -33,5 +35,7 @@ while run:
             sys.exit()
 
     dt = clock.tick() / 1000
+
+    rocket_group.draw(display_surface)
 
     pygame.display.update()
