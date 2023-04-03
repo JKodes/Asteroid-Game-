@@ -2,13 +2,20 @@ import pygame, sys, os
 
 
 class Rocket(pygame.sprite.Sprite):
-    def __init__(self,groups):
+    def __init__(self, max_vel, rotate_vel,groups):
         super().__init__(groups)
         self.image = pygame.image.load(os.path.join('Assets/images', 'betterquality_05.png'))
         self.rect = self.image.get_rect(center = (WINDOW_WIDTH /2, WINDOW_HEIGHT /2))
+        self.max_vel = max_vel
+        self.vel = 0
+        self.rotate_vel = rotate_vel
+        self.angle = 0
+        self.x, self.y = ()
+
 
 
     def controls(self):
+        pass
 
 
 
