@@ -33,11 +33,11 @@ background = pygame.image.load(os.path.join('Assets/images', 'bryan-goff-f7YQo-e
 
 
 rocket_group = pygame.sprite.Group()
-bullet_groups = pygame.sprite.Group()
+bullet_group = pygame.sprite.Group()
 
 
 rocket = Rocket(rocket_group) # class being called  
-
+bullet = Bullets((50,100),bullet_group)
 
 
 run = True
@@ -52,5 +52,6 @@ while run:
     display_surface.blit(background,(0,0))
 
     rocket_group.draw(display_surface)
+    bullet_group.draw(display_surface)
 
     pygame.display.update()
