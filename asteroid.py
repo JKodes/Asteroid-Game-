@@ -8,6 +8,9 @@ class Rocket(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = (WINDOW_WIDTH /2, WINDOW_HEIGHT /2))
 
 
+    def controls(self):
+
+
 
 
 
