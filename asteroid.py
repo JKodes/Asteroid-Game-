@@ -1,11 +1,10 @@
-import pygame, sys
+import pygame, sys, os
 
 
-class RocketShip(pygame.sprite.Sprite):
+class Rocket(pygame.sprite.Sprite):
     def __init__(self, groups):
-        super.__init__(groups)
-
-        self.image = pygame.image.load("/Assets/station_rocket.png").convert.alpha()
+        super().__init__(groups)
+        self.image = pygame.image.load("Assets/station_rocket.png").convert_alpha()
         self.rect = self.image.get_rect(center = (WINDOW_WIDTH /2, WINDOW_HEIGHT /2))
 
 
@@ -13,19 +12,18 @@ pygame.init()
 
 WINDOW_WIDTH = 1000
 WINDOW_HEIGHT = 500
-
 display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Asteriod")
 
 clock = pygame.time.Clock()
 
-background = pygame.image.load("Assets/asteriod_galaxy.png").convert_alpha()
+background = pygame.image.load("Assets/images/asteriod_galaxy.png").convert_alpha()  #this line needs to be fixed
 
 
 rocket_group = pygame.sprite.Group()
 
 
-space_craft = RocketShip(rocket_group)
+rocket = Rocket(rocket_group)
 
 run = True
 while run: 
