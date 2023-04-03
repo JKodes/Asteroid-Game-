@@ -2,28 +2,31 @@ import pygame, sys, os
 
 
 class Rocket(pygame.sprite.Sprite):
-    def __init__(self, groups):
+    def __init__(self,groups):
         super().__init__(groups)
-        self.image = pygame.image.load("Assets/station_rocket.png").convert_alpha()
+        self.image = pygame.image.load(os.path.join('Assets/images', 'betterquality_05.png'))
         self.rect = self.image.get_rect(center = (WINDOW_WIDTH /2, WINDOW_HEIGHT /2))
 
 
 pygame.init()
 
-WINDOW_WIDTH = 1000
-WINDOW_HEIGHT = 500
+WINDOW_WIDTH = 1800
+WINDOW_HEIGHT = 900
 display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Asteriod")
 
 clock = pygame.time.Clock()
 
-background = pygame.image.load("Assets/images/asteriod_galaxy.png").convert_alpha()  #this line needs to be fixed
+#background = pygame.image.load("Assets/images/asteriod_galaxy.png").convert_alpha()  #this line needs to be fixed
+background = pygame.image.load(os.path.join('Assets/images', 'bryan-goff-f7YQo-eYHdM-unsplash.jpg'))
 
 
 rocket_group = pygame.sprite.Group()
 
 
-rocket = Rocket(rocket_group)
+rocket = Rocket(rocket_group) # class being called  
+
+
 
 run = True
 while run: 
@@ -33,6 +36,8 @@ while run:
             sys.exit()
 
     dt = clock.tick() / 1000
+
+    display_surface.blit(background,(0,0))
 
     rocket_group.draw(display_surface)
 
