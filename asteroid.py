@@ -1,21 +1,32 @@
 import pygame, sys, os
+from utility import blit_rotate_center
 
 
 class Rocket(pygame.sprite.Sprite):
-    def __init__(self, max_vel, rotate_vel,groups):
+    def __init__(self, max_vel, rotate_vel, groups):
         super().__init__(groups)
         self.image = pygame.image.load(os.path.join('Assets/images', 'betterquality_05.png'))
         self.rect = self.image.get_rect(center = (WINDOW_WIDTH /2, WINDOW_HEIGHT /2))
-        self.max_vel = max_vel
+        self.max_vel = max_vel      #line 8 - 13 new code dont know if it work
         self.vel = 0
         self.rotate_vel = rotate_vel
         self.angle = 0
-        self.x, self.y = ()
+        self.x, self.y = (200, 250)
+        self.acceleration = 0.1
+
+    def rotate(self, left=False, right=False):
+        if left:
+            self.angle += self.rotate_vel
+        elif right:
+            self.angle -= self.rotate_vel
+
+
+    def move_forward(self):
+        self.vel = min(self.vel + self.acceleration, self.max_vel)
+        self.move()
 
 
 
-    def controls(self):
-        pass
 
 
 
@@ -46,7 +57,7 @@ rocket_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
 
 
-rocket = Rocket(rocket_group) # class being called  
+rocket = Rocket(rocket_group, 4,4)  
 bullet = Bullets((50,100),bullet_group)
 
 
@@ -60,6 +71,16 @@ while run:
     dt = clock.tick() / 1000
 
     display_surface.blit(background,(0,0))
+
+    blit_rotate_center(display, self.image, (self.x, self.y), self.angle)
+
+
+    keys = pygame.key.get_pressed()
+    
+    if [pygame.K_LEFT]:
+        rocket.rotate(left=True)
+    if [pygame.K_RIGHT]:
+        rocket.rotate(right=True)
 
     rocket_group.draw(display_surface)
     bullet_group.draw(display_surface)
