@@ -8,6 +8,17 @@ class Rocket(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = (WINDOW_WIDTH /2, WINDOW_HEIGHT /2))
 
 
+
+
+
+class Bullets(pygame.sprite.Sprite):
+    def __init__(self, pos, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(os.path.join('Assets/images', 'bullets_03.png'))
+        self.rect = self.image.get_rect(midbottom = pos)
+
+
+
 pygame.init()
 
 WINDOW_WIDTH = 1800
@@ -22,6 +33,7 @@ background = pygame.image.load(os.path.join('Assets/images', 'bryan-goff-f7YQo-e
 
 
 rocket_group = pygame.sprite.Group()
+bullet_groups = pygame.sprite.Group()
 
 
 rocket = Rocket(rocket_group) # class being called  
