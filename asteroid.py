@@ -14,6 +14,10 @@ class Rocket(pygame.sprite.Sprite):
         self.x, self.y = (200, 250)
         self.acceleration = 0.1
 
+        self.shoot = True
+        self.shoot_clock = None
+    
+
     def rotate(self, left=False, right=False):
         if left:
             self.angle += self.rotate_vel
@@ -35,6 +39,23 @@ class Rocket(pygame.sprite.Sprite):
     def reduce_speed(self):
         self.vel = max(self.vel - self.acceleration / 2, 0)
         self.move()
+
+    def bullet_timer(self):
+        if not self.shoot:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.shoot_clock > 500:
+                self.shoot = True
+
+    def bullets_input(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE] and self.shoot:
+            print('shooting bullets')
+            self.shoot = False
+            self.shoot_clock = pygame.time.get_ticks()
+
+    def update(self):
+        self.bullets_input()
+        self.bullet_timer()
 
 class Bullets(pygame.sprite.Sprite):
     def __init__(self, pos, groups):
