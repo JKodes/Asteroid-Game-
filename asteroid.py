@@ -99,7 +99,7 @@ while run:
 
     
 
-    rocket_group.draw(display_surface)
+    
     bullet_group.draw(display_surface)
 
     pygame.display.update()
