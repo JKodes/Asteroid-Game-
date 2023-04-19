@@ -14,8 +14,9 @@ class Rocket(pygame.sprite.Sprite):
         self.x, self.y = (200, 250)
         self.acceleration = 0.1
 
-        self.shoot = True
-        self.shoot_clock = None
+
+        self.bullet_group = pygame.sprite.Group()
+
     
 
     def rotate(self, left=False, right=False):
@@ -40,47 +41,35 @@ class Rocket(pygame.sprite.Sprite):
         self.vel = max(self.vel - self.acceleration / 2, 0)
         self.move()
 
-    def bullet_timer(self):
-        if not self.shoot:
-            current_time = pygame.time.get_ticks()
-            if current_time - self.shoot_clock > 500:
-                self.shoot = True
-
-    def bullets_input(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE] and self.shoot:
-            print('shooting bullets')
-            self.shoot = False
-            self.shoot_clock = pygame.time.get_ticks()
-
-    def update(self):
-        self.bullets_input()
-        self.bullet_timer()
 
 class Bullets(pygame.sprite.Sprite):
-    def __init__(self, pos, groups):
+    def __init__(self, pos, direction, groups):
         super().__init__(groups)
         pygame.image.get_extended()  # Disable cache for all images loaded afterwards
         self.image = pygame.image.load(os.path.join('Assets/images', 'bullets_03.png'))
-        self.rect = self.image.get_rect(midbottom=pos)
 
+
+#initalize pygame
 pygame.init()
 
-WINDOW_WIDTH = 1800
-WINDOW_HEIGHT = 900
+#create pygame window 
+WINDOW_WIDTH = 1300
+WINDOW_HEIGHT = 800
 display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption("Asteriod")
 
 clock = pygame.time.Clock()
 
+#background display
 background = pygame.image.load(os.path.join('Assets/images', 'bryan-goff-f7YQo-eYHdM-unsplash.jpg'))
 
 rocket_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
 
-rocket = Rocket(4, 4, rocket_group)
-bullet = Bullets((50, 100), bullet_group)
+rocket = Rocket(2, 3, rocket_group)
 
+
+#main game loop
 run = True
 while run:
     for event in pygame.event.get():
@@ -107,6 +96,8 @@ while run:
 
     if not moved:
         rocket.reduce_speed()
+
+    
 
     rocket_group.draw(display_surface)
     bullet_group.draw(display_surface)
