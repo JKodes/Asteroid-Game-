@@ -15,7 +15,11 @@ class Rocket(pygame.sprite.Sprite):
         self.acceleration = 0.1
 
 
-        self.bullet_group = pygame.sprite.Group()
+        self.can_shoot = True
+        self.shoot_time = None
+
+
+        
 
     
 
@@ -41,12 +45,37 @@ class Rocket(pygame.sprite.Sprite):
         self.vel = max(self.vel - self.acceleration / 2, 0)
         self.move()
 
+    def bullet_time(self):
+        if not self.can_shoot:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.shoot_time > 500:
+                self.can_shoot = True
+
+    def bullet_launch(self):
+        if pygame.key.get_pressed()[pygame.K_SPACE] and self.can_shoot:
+            self.can_shoot = False 
+            self.shoot_time = pygame.time.get_ticks()
+
+    
+            Bullets(self.rect.midtop, bullet_group)
+    def update(self):
+        self.bullet_time()
+        self.bullet_launch()
 
 class Bullets(pygame.sprite.Sprite):
-    def __init__(self, pos, direction, groups):
+    def __init__(self, pos, groups):
         super().__init__(groups)
-        pygame.image.get_extended()  # Disable cache for all images loaded afterwards
         self.image = pygame.image.load(os.path.join('Assets/images', 'bullets_03.png'))
+        self.rect = self.image.get_rect(midbottom = pos)
+
+        self.pos = pygame.math.Vector2(self.rect.topleft)
+        self.direction = pygame.math.Vector2(0, -1)
+        self.speed = 140
+
+    
+    def update(self):
+        self.pos += self.direction * self.speed * dt
+        self.rect.topleft = ( round(self.pos.x), round(self.pos.y) )
 
 
 #initalize pygame
@@ -67,6 +96,7 @@ rocket_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
 
 rocket = Rocket(2, 3, rocket_group)
+
 
 
 #main game loop
@@ -97,7 +127,8 @@ while run:
     if not moved:
         rocket.reduce_speed()
 
-    
+    rocket_group.update()
+    bullet_group.update()
 
     
     bullet_group.draw(display_surface)
