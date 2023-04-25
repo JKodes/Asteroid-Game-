@@ -14,14 +14,9 @@ class Rocket(pygame.sprite.Sprite):
         self.x, self.y = (200, 250)
         self.acceleration = 0.1
 
-
         self.can_shoot = True
         self.shoot_time = None
 
-
-        
-
-    
 
     def rotate(self, left=False, right=False):
         if left:
@@ -41,6 +36,8 @@ class Rocket(pygame.sprite.Sprite):
         self.y -= vertical_vel
         self.x -= horizontal_vel
 
+        self.rect.center = (self.x, self.y)
+
     def reduce_speed(self):
         self.vel = max(self.vel - self.acceleration / 2, 0)
         self.move()
@@ -56,26 +53,28 @@ class Rocket(pygame.sprite.Sprite):
             self.can_shoot = False 
             self.shoot_time = pygame.time.get_ticks()
 
-    
-            Bullets(self.rect.midtop, bullet_group)
+            Bullets(self.rect.center, self.angle, bullet_group)
+
     def update(self):
         self.bullet_time()
         self.bullet_launch()
 
 class Bullets(pygame.sprite.Sprite):
-    def __init__(self, pos, groups):
+    def __init__(self, pos, angle, groups):
         super().__init__(groups)
         self.image = pygame.image.load(os.path.join('Assets/images', 'bullets_03.png'))
-        self.rect = self.image.get_rect(midbottom = pos)
-
-        self.pos = pygame.math.Vector2(self.rect.topleft)
-        self.direction = pygame.math.Vector2(0, -1)
+        self.rect = self.image.get_rect(center=pos)
+        
+        self.direction = pygame.math.Vector2(0, -1).rotate(-angle)
+        
+        offset = pygame.math.Vector2(0, -self.rect.width / 2).rotate(-angle)
+        self.pos = pygame.math.Vector2(pos) + offset
         self.speed = 140
 
     
     def update(self):
         self.pos += self.direction * self.speed * dt
-        self.rect.topleft = ( round(self.pos.x), round(self.pos.y) )
+        self.rect.center  = (round(self.pos.x), round(self.pos.y))
 
 
 #initalize pygame
@@ -96,8 +95,6 @@ rocket_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
 
 rocket = Rocket(2, 3, rocket_group)
-
-
 
 #main game loop
 run = True
@@ -132,5 +129,7 @@ while run:
 
     
     bullet_group.draw(display_surface)
+    
+
 
     pygame.display.update()
