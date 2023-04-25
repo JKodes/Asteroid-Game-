@@ -63,7 +63,7 @@ class Bullets(pygame.sprite.Sprite):
     def __init__(self, pos, angle, groups):
         super().__init__(groups)
         self.image = pygame.image.load(os.path.join('Assets/images', 'bullets_03.png'))
-        self.rect = self.image.get_rect(center=pos)
+        self.rect = self.image.get_rect(center = pos)
         
         self.direction = pygame.math.Vector2(0, -1).rotate(-angle)
         
@@ -74,7 +74,7 @@ class Bullets(pygame.sprite.Sprite):
     
     def update(self):
         self.pos += self.direction * self.speed * dt
-        self.rect.center  = (round(self.pos.x), round(self.pos.y))
+        self.rect.center  = ( round(self.pos.x), round(self.pos.y) )
 
 
 #initalize pygame
