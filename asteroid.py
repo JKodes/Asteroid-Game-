@@ -76,7 +76,7 @@ class Bullets(pygame.sprite.Sprite):
         self.pos += self.direction * self.speed * dt
         self.rect.center  = ( round(self.pos.x), round(self.pos.y) )
 
-class Meteor(pygame.sprite.Sprite):
+class Asteroid(pygame.sprite.Sprite):
     def __init__(self):
 
 #initalize pygame
