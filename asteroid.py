@@ -76,6 +76,8 @@ class Bullets(pygame.sprite.Sprite):
         self.pos += self.direction * self.speed * dt
         self.rect.center  = ( round(self.pos.x), round(self.pos.y) )
 
+class Meteor(pygame.sprite.Sprite):
+    def __init__(self):
 
 #initalize pygame
 pygame.init()
@@ -96,6 +98,10 @@ bullet_group = pygame.sprite.Group()
 
 rocket = Rocket(2, 3, rocket_group)
 
+
+asteroid_timer = pygame.event.custom_type()
+pygame.time.set_timer(asteroid_timer, 300)
+
 #main game loop
 run = True
 while run:
@@ -103,6 +109,9 @@ while run:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+        if event.type == asteroid_timer:
+            pass
 
     dt = clock.tick() / 1000
 
