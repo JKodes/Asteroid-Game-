@@ -1,5 +1,6 @@
 import pygame, sys, os, math
 from utility import blit_rotate_center
+from random import randint, uniform 
 
 class Rocket(pygame.sprite.Sprite):
     def __init__(self, max_vel, rotate_vel, groups):
@@ -77,7 +78,16 @@ class Bullets(pygame.sprite.Sprite):
         self.rect.center  = ( round(self.pos.x), round(self.pos.y) )
 
 class Asteroid(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, pos, groups):
+        super().__init__(groups)
+        self.image = pygame.image.load(os.path.join('Assets/images', 'smallasteriod2x_03'))
+        self.rect = self.image.get_rect(center = pos)
+
+        self.pos = pygame.math.Vector2(self.rect.topleft)
+        self.direction = pygame.math.Vector2(uniform(-0.5, 0.5), 1)
+        self.speed = randint(300, 400)
+
+    def update(self):
         pass
 
 #initalize pygame
