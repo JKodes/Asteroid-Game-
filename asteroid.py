@@ -78,6 +78,7 @@ class Bullets(pygame.sprite.Sprite):
 
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self):
+        pass
 
 #initalize pygame
 pygame.init()
