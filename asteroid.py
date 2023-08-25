@@ -14,6 +14,8 @@ class Rocket(pygame.sprite.Sprite):
         self.angle = 0
         self.x, self.y = (200, 250)
         self.acceleration = 0.1
+        
+        self.mask = pygame.mask.from_surface(self.image)
 
         self.can_shoot = True
         self.shoot_time = None
@@ -55,41 +57,76 @@ class Rocket(pygame.sprite.Sprite):
             self.shoot_time = pygame.time.get_ticks()
 
             Bullets(self.rect.center, self.angle, bullet_group)
+            
+    def collision(self):
+        if pygame.sprite.spritecollide(self, asteroid_group,False,pygame.sprite.collide_mask):
+            pygame.quit()
+            sys.exit()
 
     def update(self):
         self.bullet_time()
         self.bullet_launch()
+        
+        self.collision()
+        
+
 
 class Bullets(pygame.sprite.Sprite):
     def __init__(self, pos, angle, groups):
         super().__init__(groups)
         self.image = pygame.image.load(os.path.join('Assets/images', 'bullets_03.png'))
         self.rect = self.image.get_rect(center = pos)
+        self.mask = pygame.mask.from_surface(self.image)
         
         self.direction = pygame.math.Vector2(0, -1).rotate(-angle)
         
         offset = pygame.math.Vector2(0, -self.rect.width / 2).rotate(-angle)
         self.pos = pygame.math.Vector2(pos) + offset
         self.speed = 140
+        
+    def collision(self):
+        if pygame.sprite.spritecollide(self,asteroid_group, True, pygame.sprite.collide_mask):
+            self.kill()
 
     
     def update(self):
         self.pos += self.direction * self.speed * dt
         self.rect.center  = ( round(self.pos.x), round(self.pos.y))
+        
+        self.collision()
 
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self, pos, groups):
         super().__init__(groups)
         self.image = pygame.image.load(os.path.join('Assets/images', 'smallasteriod2x_03.png'))
         self.rect = self.image.get_rect(center = pos)
+        self.mask = pygame.mask.from_surface(self.image)
 
         self.pos = pygame.math.Vector2(self.rect.topleft)
         self.direction = pygame.math.Vector2(uniform(-0.5, 0.5), 1)
         self.speed = randint(300, 400)
-
+        
     def update(self):
         self.pos += self.direction * self.speed * dt
         self.rect.center  = ( round(self.pos.x), round(self.pos.y))
+        
+        if self.rect.top > WINDOW_HEIGHT:
+            self.kill()
+
+class Score:
+    def __init__(self):
+        font_file = 'Snubfighter.ttf'
+        font_path = os.path.join(font_file)
+        self.font = pygame.font.Font(font_path, 25)
+        
+        
+    def display(self):
+        score_text = f'SCORE: {pygame.time.get_ticks() // 1000}'
+        text_surface = self.font.render(score_text,True, (253,216,53))
+        text_rect = text_surface.get_rect(topright=(WINDOW_WIDTH - 20, 20))
+        display_surface.blit(text_surface,text_rect)
+        pygame.draw.rect(display_surface, (253,216,53),text_rect.inflate(30,30), width= 8, border_radius = 5)
+        
         
 
 #initalize pygame
@@ -115,6 +152,8 @@ rocket = Rocket(2, 3, rocket_group)
 
 asteroid_timer = pygame.event.custom_type()
 pygame.time.set_timer(asteroid_timer, 300)
+
+score = Score()
 
 #main game loop
 run = True
@@ -152,6 +191,8 @@ while run:
     rocket_group.update()
     bullet_group.update()
     asteroid_group.update()
+    
+    score.display()
     
     bullet_group.draw(display_surface)
     asteroid_group.draw(display_surface)
