@@ -75,12 +75,12 @@ class Bullets(pygame.sprite.Sprite):
     
     def update(self):
         self.pos += self.direction * self.speed * dt
-        self.rect.center  = ( round(self.pos.x), round(self.pos.y) )
+        self.rect.center  = ( round(self.pos.x), round(self.pos.y))
 
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self, pos, groups):
         super().__init__(groups)
-        self.image = pygame.image.load(os.path.join('Assets/images', 'smallasteriod2x_03'))
+        self.image = pygame.image.load(os.path.join('Assets/images', 'smallasteriod2x_03.png'))
         self.rect = self.image.get_rect(center = pos)
 
         self.pos = pygame.math.Vector2(self.rect.topleft)
@@ -88,7 +88,9 @@ class Asteroid(pygame.sprite.Sprite):
         self.speed = randint(300, 400)
 
     def update(self):
-        pass
+        self.pos += self.direction * self.speed * dt
+        self.rect.center  = ( round(self.pos.x), round(self.pos.y))
+        
 
 #initalize pygame
 pygame.init()
@@ -106,6 +108,7 @@ background = pygame.image.load(os.path.join('Assets/images', 'bryan-goff-f7YQo-e
 
 rocket_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
+asteroid_group = pygame.sprite.Group()
 
 rocket = Rocket(2, 3, rocket_group)
 
@@ -122,7 +125,9 @@ while run:
             sys.exit()
 
         if event.type == asteroid_timer:
-            pass
+            asteroid_y_pos = randint(-120, -10)
+            asteroid_x_pos = randint(-100, WINDOW_WIDTH + 100)
+            Asteroid((asteroid_x_pos, asteroid_y_pos), groups = asteroid_group)
 
     dt = clock.tick() / 1000
 
@@ -146,10 +151,10 @@ while run:
 
     rocket_group.update()
     bullet_group.update()
-
+    asteroid_group.update()
     
     bullet_group.draw(display_surface)
-    
+    asteroid_group.draw(display_surface)
 
 
     pygame.display.update()
